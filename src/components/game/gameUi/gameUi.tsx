@@ -44,8 +44,8 @@ const GameUI: React.FC<Props> = ({
   return (
     <div
       className={`w-full max-w-3xl mx-auto p-1 text-center
-        bg-white text-gray-900
-        dark:bg-gray-900 dark:text-gray-100
+         text-gray-900
+         dark:text-gray-100
         transition-colors duration-300`}
     >
       <Navbar
