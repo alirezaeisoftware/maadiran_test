@@ -1,8 +1,7 @@
 import React from "react";
 import Grid from "../../grid/grid";
-import ModalSuccess from "../../modal/modalSuccess";
-import ModalWrong from "../../modal/modalError";
 import Navbar from "../../navbar/navbar";
+import GameModal from "../../modal/modal";
 
 interface Props {
   level: number;
@@ -43,7 +42,12 @@ const GameUI: React.FC<Props> = ({
   onToggleTheme,
 }) => {
   return (
-    <div className="w-full max-w-3xl mx-auto p-1 text-center">
+    <div
+      className={`w-full max-w-3xl mx-auto p-1 text-center
+        bg-white text-gray-900
+        dark:bg-gray-900 dark:text-gray-100
+        transition-colors duration-300`}
+    >
       <Navbar
         level={level}
         onToggleTheme={onToggleTheme}
@@ -60,16 +64,20 @@ const GameUI: React.FC<Props> = ({
         onCellClick={onCellClick}
       />
 
-      {showModal && (
-        <ModalSuccess
-          isGameFinished={isGameFinished}
-          onNextLevel={onNextLevel}
-          onRepeat={onRepeat}
-          onRestart={onRestart}
-        />
-      )}
+      <GameModal
+        type="success"
+        isVisible={showModal}
+        isGameFinished={isGameFinished}
+        onNextLevel={onNextLevel}
+        onRepeat={onRepeat}
+        onRestart={onRestart}
+      />
 
-      {showWrongModal && <ModalWrong onClose={onCloseWrong} />}
+      <GameModal
+        type="error"
+        isVisible={showWrongModal}
+        onCancel={onCloseWrong}
+      />
     </div>
   );
 };

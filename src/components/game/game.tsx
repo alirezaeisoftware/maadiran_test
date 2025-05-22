@@ -53,17 +53,29 @@ const Game: React.FC = () => {
     }
   }, [level]);
 
+  const loadingWrapperClass = `flex items-center justify-center h-screen transition-colors duration-500 ${
+    isDarkMode ? "bg-gray-900 text-gray-100" : "bg-gray-100 text-gray-700"
+  }`;
+
+  const loadingSpinnerClass = `animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 ${
+    isDarkMode ? "border-blue-400" : "border-blue-500"
+  }`;
+
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+      <div className={loadingWrapperClass}>
+        <div className={loadingSpinnerClass}></div>
       </div>
     );
   }
 
   if (level === null) {
     return (
-      <div className="p-5 text-center text-gray-700 dark:text-gray-300">
+      <div
+        className={`p-5 text-center transition-colors duration-500 ${
+          isDarkMode ? "text-gray-300" : "text-gray-700"
+        }`}
+      >
         Loading...
       </div>
     );

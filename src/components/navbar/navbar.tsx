@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import ConfirmModal from "../modal/confirmModal";
+import LightIcon from "../../../public/icons/summer_14388078.webp";
+import DarkIcon from "../../../public/icons/moon_740866.webp";
+import GameModal from "../modal/modal";
 
 interface NavbarProps {
   level: number;
@@ -36,9 +38,15 @@ const Navbar: React.FC<NavbarProps> = ({
     >
       <button
         onClick={onToggleTheme}
-        className="px-3 py-1 bg-gray-500 dark:bg-gray-700 rounded-md hover:scale-105 transition"
+        className="px-3 py-1 rounded-md transition"
       >
-        {isDarkMode ? "☀️" : "🌙"}
+        <img
+          src={isDarkMode ? LightIcon : DarkIcon}
+          alt={isDarkMode ? "Light mode icon" : "Dark mode icon"}
+          aria-label={isDarkMode ? "Light mode" : "Dark mode"}
+          className="w-10 h-10"
+          loading="lazy"
+        />
       </button>
 
       {level >= 1 && (
@@ -52,13 +60,13 @@ const Navbar: React.FC<NavbarProps> = ({
 
       <div className="font-bold text-lg">level {level + 1}</div>
 
-      {showConfirmModal && (
-        <ConfirmModal
-          message="Are you sure to restart the game?"
-          onConfirm={handleConfirmRestart}
-          onCancel={handleCancelRestart}
-        />
-      )}
+      <GameModal
+        type="confirm"
+        isVisible={showConfirmModal}
+        message="Are you sure you want to restart the game?"
+        onConfirm={handleConfirmRestart}
+        onCancel={handleCancelRestart}
+      />
     </nav>
   );
 };
