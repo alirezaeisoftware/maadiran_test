@@ -24,7 +24,6 @@ const Game: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Read theme on mount only
     const storedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
