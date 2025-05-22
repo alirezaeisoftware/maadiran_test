@@ -12,7 +12,7 @@ interface NavbarProps {
 }
 
 const buttonClasses = {
-  base: "px-3 py-1 rounded transition",
+  base: "py-1 rounded transition",
   themeToggle: "hover:opacity-80 focus:ring-gray-400",
   restart:
     "bg-blue-700 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 focus:ring-blue-500",
