@@ -83,7 +83,10 @@ export function useGameLogic() {
   };
 
   const handleRestart = () => {
-    localStorage.clear();
+    localStorage.removeItem("game-level");
+    localStorage.removeItem("diff-color");
+    localStorage.removeItem("diff-index");
+
     setLevel(0);
     setDiffColor("");
     setDiffIndex(0);

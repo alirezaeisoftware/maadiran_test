@@ -7,6 +7,8 @@ type GridProps = {
   diffColor: string;
   diffIndex: number;
   onCellClick: (idx: number) => void;
+  gap?: string;
+  cellShape?: "square" | "circle";
 };
 
 const Grid: React.FC<GridProps> = ({
@@ -16,6 +18,8 @@ const Grid: React.FC<GridProps> = ({
   diffColor,
   diffIndex,
   onCellClick,
+  gap = "1px",
+  cellShape = "square",
 }) => {
   const total = rows * cols;
 
@@ -23,7 +27,7 @@ const Grid: React.FC<GridProps> = ({
     <div
       className="mt-3 grid w-full max-w-5xl mx-auto"
       style={{
-        gap: "1px",
+        gap: gap,
         gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
       }}
@@ -32,7 +36,9 @@ const Grid: React.FC<GridProps> = ({
         <div
           key={idx}
           onClick={() => onCellClick(idx)}
-          className="w-full aspect-square cursor-pointer transition-colors duration-300"
+          className={`w-full aspect-square cursor-pointer transition-colors duration-300 ${
+            cellShape === "circle" ? "rounded-full" : "rounded-none"
+          }`}
           style={{
             backgroundColor: idx === diffIndex ? diffColor : baseColor,
           }}
