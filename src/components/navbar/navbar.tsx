@@ -33,17 +33,24 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <nav
-      className="mt-10 flex items-center justify-between border-solid
- px-4 py-2 shadow-2xl bg-white dark:bg-gray-800 text-gray-800 dark:text-white transition-colors rounded-md"
+      className={`mt-10 flex items-center justify-between border border-transparent
+        px-4 py-2 shadow-2xl rounded-md
+        bg-white text-gray-800
+        dark:bg-gray-800 dark:text-white
+        transition-colors duration-300`}
     >
       <button
         onClick={onToggleTheme}
-        className="px-3 py-1 rounded-md transition"
+        className={`
+          px-3 py-1 rounded-md transition
+          
+          
+        `}
+        aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
         <img
           src={isDarkMode ? LightIcon : DarkIcon}
           alt={isDarkMode ? "Light mode icon" : "Dark mode icon"}
-          aria-label={isDarkMode ? "Light mode" : "Dark mode"}
           className="w-10 h-10"
           loading="lazy"
         />
@@ -52,13 +59,21 @@ const Navbar: React.FC<NavbarProps> = ({
       {level >= 1 && (
         <button
           onClick={handleRestartClick}
-          className="bg-blue-700 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
+          className={`
+            px-3 py-1 rounded
+            bg-blue-700 text-white
+            hover:bg-blue-600
+            dark:bg-blue-600 dark:hover:bg-blue-500
+            transition
+            focus:outline-none focus:ring-2 focus:ring-offset-1
+            focus:ring-blue-500
+          `}
         >
           start again
         </button>
       )}
 
-      <div className="font-bold text-lg">level {level + 1}</div>
+      <div className="font-bold text-lg select-none">level {level + 1}</div>
 
       <GameModal
         type="confirm"

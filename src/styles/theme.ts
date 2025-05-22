@@ -1,5 +1,3 @@
-// src/styles/theme.ts
-
 export const colors = {
   light: {
     background: "#ffffff",

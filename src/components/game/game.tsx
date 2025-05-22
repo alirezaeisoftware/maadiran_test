@@ -21,14 +21,23 @@ const Game: React.FC = () => {
     closeWrongModal,
   } = useGameLogic();
 
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") === "dark";
-    }
-    return false;
-  });
+  const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
 
   useEffect(() => {
+    // Read theme on mount only
+    const storedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    const isDark = storedTheme ? storedTheme === "dark" : prefersDark;
+
+    setIsDarkMode(isDark);
+  }, []);
+
+  useEffect(() => {
+    if (isDarkMode === null) return;
+
     const root = window.document.documentElement;
     if (isDarkMode) {
       root.classList.add("dark");
@@ -39,7 +48,9 @@ const Game: React.FC = () => {
     }
   }, [isDarkMode]);
 
-  const toggleTheme = () => setIsDarkMode((prev) => !prev);
+  const toggleTheme = () => {
+    setIsDarkMode((prev) => !prev);
+  };
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -61,7 +72,7 @@ const Game: React.FC = () => {
     isDarkMode ? "border-blue-400" : "border-blue-500"
   }`;
 
-  if (isLoading) {
+  if (isDarkMode === null || isLoading) {
     return (
       <div className={loadingWrapperClass}>
         <div className={loadingSpinnerClass}></div>
