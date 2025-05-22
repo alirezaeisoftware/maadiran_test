@@ -15,7 +15,7 @@ const buttonClasses = {
   base: "py-1 rounded transition",
   themeToggle: "hover:opacity-80 focus:ring-gray-400",
   restart:
-    "bg-blue-700 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 focus:ring-blue-500",
+    "bg-blue-700 px-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 focus:ring-blue-500",
 };
 
 const navClasses = `
