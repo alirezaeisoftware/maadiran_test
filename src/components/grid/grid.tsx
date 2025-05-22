@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type GridProps = {
   rows: number;
@@ -8,7 +8,7 @@ type GridProps = {
   diffIndex: number;
   onCellClick: (idx: number) => void;
   gap?: string;
-  cellShape?: "square" | "circle";
+  cellShape?: 'square' | 'circle';
 };
 
 const Grid: React.FC<GridProps> = ({
@@ -18,8 +18,8 @@ const Grid: React.FC<GridProps> = ({
   diffColor,
   diffIndex,
   onCellClick,
-  gap = "1px",
-  cellShape = "square",
+  gap = '1px',
+  cellShape = 'square',
 }) => {
   const total = rows * cols;
 
@@ -37,7 +37,7 @@ const Grid: React.FC<GridProps> = ({
           key={idx}
           onClick={() => onCellClick(idx)}
           className={`w-full aspect-square cursor-pointer transition-colors duration-300 ${
-            cellShape === "circle" ? "rounded-full" : "rounded-none"
+            cellShape === 'circle' ? 'rounded-full' : 'rounded-none'
           }`}
           style={{
             backgroundColor: idx === diffIndex ? diffColor : baseColor,

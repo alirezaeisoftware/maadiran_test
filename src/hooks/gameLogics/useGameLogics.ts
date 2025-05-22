@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { BASE_COLORS, getDifferentColor } from "../../utils/colorUtils";
+import { useEffect, useState } from 'react';
+import { BASE_COLORS, getDifferentColor } from '../../utils/colorUtils';
 
 export function useGameLogic() {
   const [level, setLevel] = useState<number | null>(null);
@@ -7,16 +7,16 @@ export function useGameLogic() {
   const [cols, setCols] = useState(3);
   const [diffIndex, setDiffIndex] = useState(0);
   const [baseColor, setBaseColor] = useState(BASE_COLORS[0]);
-  const [diffColor, setDiffColor] = useState("");
+  const [diffColor, setDiffColor] = useState('');
   const [colorGroup, setColorGroup] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [showWrongModal, setShowWrongModal] = useState(false);
 
   useEffect(() => {
-    const savedLevel = localStorage.getItem("game-level");
-    const savedIndex = localStorage.getItem("diff-index");
-    const savedColor = localStorage.getItem("diff-color");
+    const savedLevel = localStorage.getItem('game-level');
+    const savedIndex = localStorage.getItem('diff-index');
+    const savedColor = localStorage.getItem('diff-color');
 
     setLevel(savedLevel ? parseInt(savedLevel) : 0);
     if (savedIndex) setDiffIndex(parseInt(savedIndex));
@@ -25,7 +25,7 @@ export function useGameLogic() {
 
   useEffect(() => {
     if (level === null) return;
-    localStorage.setItem("game-level", level.toString());
+    localStorage.setItem('game-level', level.toString());
 
     const newGroup = Math.floor(level / 3);
     if (newGroup !== colorGroup) setColorGroup(newGroup);
@@ -47,16 +47,16 @@ export function useGameLogic() {
     const difficultyWithLevel = difficulty + Math.floor(level / 4);
 
     const total = r * c;
-    const storedDiffColor = localStorage.getItem("diff-color");
-    const storedDiffIndex = localStorage.getItem("diff-index");
+    const storedDiffColor = localStorage.getItem('diff-color');
+    const storedDiffIndex = localStorage.getItem('diff-index');
 
     if (!storedDiffColor || !storedDiffIndex) {
       const newDiffColor = getDifferentColor(base, difficultyWithLevel);
       const newDiffIndex = Math.floor(Math.random() * total);
       setDiffColor(newDiffColor);
       setDiffIndex(newDiffIndex);
-      localStorage.setItem("diff-color", newDiffColor);
-      localStorage.setItem("diff-index", newDiffIndex.toString());
+      localStorage.setItem('diff-color', newDiffColor);
+      localStorage.setItem('diff-index', newDiffIndex.toString());
     }
   }, [level, colorGroup]);
 
@@ -71,8 +71,8 @@ export function useGameLogic() {
   };
 
   const handleNextLevel = () => {
-    localStorage.removeItem("diff-color");
-    localStorage.removeItem("diff-index");
+    localStorage.removeItem('diff-color');
+    localStorage.removeItem('diff-index');
     setLevel((prev) => (prev !== null ? prev + 1 : 0));
     setShowModal(false);
   };
@@ -83,12 +83,12 @@ export function useGameLogic() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem("game-level");
-    localStorage.removeItem("diff-color");
-    localStorage.removeItem("diff-index");
+    localStorage.removeItem('game-level');
+    localStorage.removeItem('diff-color');
+    localStorage.removeItem('diff-index');
 
     setLevel(0);
-    setDiffColor("");
+    setDiffColor('');
     setDiffIndex(0);
     setIsGameFinished(false);
     setShowModal(false);

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import GameUI from "./gameUi/gameUi";
-import { useGameLogic } from "../../hooks/gameLogics/useGameLogics";
+import React, { useEffect, useState } from 'react';
+import GameUI from './gameUi/gameUi';
+import { useGameLogic } from '../../hooks/gameLogics/useGameLogics';
 
 const Game: React.FC = () => {
   const {
@@ -24,9 +24,9 @@ const Game: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
+    const storedTheme = localStorage.getItem('theme');
 
-    const isDark = storedTheme === "dark";
+    const isDark = storedTheme === 'dark';
 
     setIsDarkMode(isDark);
   }, []);
@@ -36,11 +36,11 @@ const Game: React.FC = () => {
 
     const root = window.document.documentElement;
     if (isDarkMode) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [isDarkMode]);
 
@@ -61,11 +61,11 @@ const Game: React.FC = () => {
   }, [level]);
 
   const loadingWrapperClass = `flex items-center justify-center h-screen transition-colors duration-500 ${
-    isDarkMode ? "bg-gray-900 text-gray-100" : "bg-gray-100 text-gray-700"
+    isDarkMode ? 'bg-gray-900 text-gray-100' : 'bg-gray-100 text-gray-700'
   }`;
 
   const loadingSpinnerClass = `animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 ${
-    isDarkMode ? "border-blue-400" : "border-blue-500"
+    isDarkMode ? 'border-blue-400' : 'border-blue-500'
   }`;
 
   if (isDarkMode === null || isLoading) {
@@ -80,7 +80,7 @@ const Game: React.FC = () => {
     return (
       <div
         className={`p-5 text-center transition-colors duration-500 ${
-          isDarkMode ? "text-gray-300" : "text-gray-700"
+          isDarkMode ? 'text-gray-300' : 'text-gray-700'
         }`}
       >
         Loading...

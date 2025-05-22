@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 interface GameModalProps {
-  type: "success" | "error" | "confirm";
+  type: 'success' | 'error' | 'confirm';
   title?: string;
   message?: string;
   isGameFinished?: boolean;
@@ -45,7 +45,7 @@ const GameModal: React.FC<GameModalProps> = ({
 
   const getContent = () => {
     switch (type) {
-      case "success":
+      case 'success':
         return (
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
             {isGameFinished ? (
@@ -82,7 +82,7 @@ const GameModal: React.FC<GameModalProps> = ({
           </div>
         );
 
-      case "error":
+      case 'error':
         return (
           <button
             onClick={onCancel}
@@ -92,7 +92,7 @@ const GameModal: React.FC<GameModalProps> = ({
           </button>
         );
 
-      case "confirm":
+      case 'confirm':
         return (
           <div className="flex justify-center gap-4">
             <button
@@ -118,12 +118,12 @@ const GameModal: React.FC<GameModalProps> = ({
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${
-        animate ? "opacity-100" : "opacity-0 pointer-events-none"
+        animate ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
     >
       <div
         className={`bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md mx-4 shadow-lg text-center text-gray-900 dark:text-gray-100 transition-transform duration-300 ${
-          animate ? "scale-100" : "scale-90"
+          animate ? 'scale-100' : 'scale-90'
         }`}
       >
         <h3 className="text-xl font-semibold mb-4">
@@ -138,14 +138,14 @@ const GameModal: React.FC<GameModalProps> = ({
 
 const getDefaultTitle = (type: string, isGameFinished?: boolean) => {
   switch (type) {
-    case "success":
-      return isGameFinished ? "Congratulations! 🎉" : "Correct ✅";
-    case "error":
-      return "Wrong ❌";
-    case "confirm":
-      return "Are you sure?";
+    case 'success':
+      return isGameFinished ? 'Congratulations! 🎉' : 'Correct ✅';
+    case 'error':
+      return 'Wrong ❌';
+    case 'confirm':
+      return 'Are you sure?';
     default:
-      return "";
+      return '';
   }
 };
 

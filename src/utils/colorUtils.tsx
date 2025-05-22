@@ -13,11 +13,11 @@ export function getDifferentColor(base: string, diff: number): string {
 }
 
 export const BASE_COLORS = [
-  "hsl(210, 70%, 50%)",
-  "hsl(120, 70%, 50%)",
-  "hsl(0, 70%, 50%)",
-  "hsl(45, 70%, 50%)",
-  "hsl(270, 70%, 50%)",
-  "hsl(30, 70%, 50%)",
-  "hsl(330, 70%, 50%)",
+  'hsl(210, 70%, 50%)',
+  'hsl(120, 70%, 50%)',
+  'hsl(0, 70%, 50%)',
+  'hsl(45, 70%, 50%)',
+  'hsl(270, 70%, 50%)',
+  'hsl(30, 70%, 50%)',
+  'hsl(330, 70%, 50%)',
 ];

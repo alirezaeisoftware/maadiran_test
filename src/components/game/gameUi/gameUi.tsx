@@ -1,7 +1,7 @@
-import React from "react";
-import Grid from "../../grid/grid";
-import Navbar from "../../navbar/navbar";
-import GameModal from "../../modal/modal";
+import React from 'react';
+import Grid from '../../grid/grid';
+import Navbar from '../../navbar/navbar';
+import GameModal from '../../modal/modal';
 
 interface Props {
   level: number;
