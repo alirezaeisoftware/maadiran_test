@@ -19,9 +19,9 @@ const buttonClasses = {
 };
 
 const navClasses = `
-  mt-10 flex items-center justify-between border border-transparent
+  my-5 flex items-center justify-between border border-transparent
   px-4 py-2 shadow-2xl rounded-md
-  bg-white text-gray-800
+  bg-white-900 text-gray-800
   dark:bg-gray-800 dark:text-white
   transition-colors duration-300
 `;
