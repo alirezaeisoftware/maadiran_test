@@ -21,7 +21,8 @@ const buttonClasses = {
 const navClasses = `
   my-5 flex items-center justify-between border border-transparent
   px-4 py-2 shadow-2xl rounded-md
-  bg-white-900 text-gray-800
+ bg-indigo-100
+ text-gray-800
   dark:bg-gray-800 dark:text-white
   transition-colors duration-300
 `;
