@@ -25,11 +25,8 @@ const Game: React.FC = () => {
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
 
-    const isDark = storedTheme ? storedTheme === "dark" : prefersDark;
+    const isDark = storedTheme === "dark";
 
     setIsDarkMode(isDark);
   }, []);
