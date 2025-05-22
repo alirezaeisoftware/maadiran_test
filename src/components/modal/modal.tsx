@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface GameModalProps {
   type: "success" | "error" | "confirm";
@@ -25,7 +25,23 @@ const GameModal: React.FC<GameModalProps> = ({
   onRepeat,
   onRestart,
 }) => {
-  if (!isVisible) return null;
+  const [show, setShow] = useState(false);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (isVisible) {
+      setShow(true);
+      // برای اجرای انیمیشن باز شدن
+      setTimeout(() => setAnimate(true), 10);
+    } else {
+      setAnimate(false);
+      // بعد از اتمام انیمیشن، مودال رو مخفی کن
+      const timer = setTimeout(() => setShow(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible]);
+
+  if (!show) return null;
 
   const getContent = () => {
     switch (type) {
@@ -100,8 +116,16 @@ const GameModal: React.FC<GameModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md mx-4 shadow-lg text-center text-gray-900 dark:text-gray-100 transition">
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${
+        animate ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+    >
+      <div
+        className={`bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md mx-4 shadow-lg text-center text-gray-900 dark:text-gray-100 transition-transform duration-300 ${
+          animate ? "scale-100" : "scale-90"
+        }`}
+      >
         <h3 className="text-xl font-semibold mb-4">
           {title || getDefaultTitle(type, isGameFinished)}
         </h3>
