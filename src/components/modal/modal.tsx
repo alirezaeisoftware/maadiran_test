@@ -29,17 +29,34 @@ const GameModal: React.FC<GameModalProps> = ({
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
     if (isVisible) {
       setShow(true);
       setTimeout(() => setAnimate(true), 10);
     } else {
       setAnimate(false);
-      const timer = setTimeout(() => setShow(false), 300);
-      return () => clearTimeout(timer);
+      timer = setTimeout(() => setShow(false), 300);
     }
+    return () => {
+      clearTimeout(timer);
+      setShow(false);
+    };
   }, [isVisible]);
 
   if (!show) return null;
+
+  const getDefaultTitle = () => {
+    switch (type) {
+      case 'success':
+        return isGameFinished ? 'Congratulations! 🎉' : 'Correct ✅';
+      case 'error':
+        return 'Wrong ❌';
+      case 'confirm':
+        return 'Are you sure?';
+      default:
+        return '';
+    }
+  };
 
   const getContent = () => {
     switch (type) {
@@ -115,6 +132,8 @@ const GameModal: React.FC<GameModalProps> = ({
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
       className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${
         animate ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
@@ -125,26 +144,13 @@ const GameModal: React.FC<GameModalProps> = ({
         }`}
       >
         <h3 className="text-xl font-semibold mb-4">
-          {title || getDefaultTitle(type, isGameFinished)}
+          {title || getDefaultTitle()}
         </h3>
         {message && <p className="mb-4">{message}</p>}
         {getContent()}
       </div>
     </div>
   );
-};
-
-const getDefaultTitle = (type: string, isGameFinished?: boolean) => {
-  switch (type) {
-    case 'success':
-      return isGameFinished ? 'Congratulations! 🎉' : 'Correct ✅';
-    case 'error':
-      return 'Wrong ❌';
-    case 'confirm':
-      return 'Are you sure?';
-    default:
-      return '';
-  }
 };
 
 export default GameModal;
