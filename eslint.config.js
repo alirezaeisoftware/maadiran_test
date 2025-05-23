@@ -24,9 +24,8 @@ module.exports = tseslint.config(
         ecmaVersion: 2020,
         sourceType: 'module',
       },
-      globals: globals.browser,
+      globals: cleanedGlobals, // استفاده از cleanedGlobals به جای globals.browser
     },
-
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
