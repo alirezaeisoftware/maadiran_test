@@ -31,11 +31,9 @@ const GameModal: React.FC<GameModalProps> = ({
   useEffect(() => {
     if (isVisible) {
       setShow(true);
-      // برای اجرای انیمیشن باز شدن
       setTimeout(() => setAnimate(true), 10);
     } else {
       setAnimate(false);
-      // بعد از اتمام انیمیشن، مودال رو مخفی کن
       const timer = setTimeout(() => setShow(false), 300);
       return () => clearTimeout(timer);
     }
