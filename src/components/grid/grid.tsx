@@ -36,7 +36,7 @@ const Grid: React.FC<GridProps> = ({
       setTimeout(() => {
         setIsWrong(false);
         setSelectedIndex(null);
-      }, 500); // انیمیشن رو بعد از 0.5 ثانیه پاک می‌کنیم
+      }, 500);
     }
   };
 

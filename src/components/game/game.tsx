@@ -70,7 +70,11 @@ const Game: React.FC = () => {
 
   if (isDarkMode === null || isLoading) {
     return (
-      <div className={loadingWrapperClass}>
+      <div
+        className={loadingWrapperClass}
+        role="status"
+        aria-label="loading spinner"
+      >
         <div className={loadingSpinnerClass}></div>
       </div>
     );
