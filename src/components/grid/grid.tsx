@@ -63,7 +63,7 @@ const Grid: React.FC<GridProps> = ({
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') handleClick(idx);
             }}
-            className={`w-full aspect-square cursor-pointer transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 
+            className={`w-full aspect-square cursor-pointer transition-colors duration-300 
               ${cellShape === 'circle' ? 'rounded-full' : 'rounded-none'}
               ${isActive ? 'animate-shake' : ''}
             `}
