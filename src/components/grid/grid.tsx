@@ -8,7 +8,7 @@ type GridProps = {
   diffIndex: number;
   onCellClick: (idx: number) => void;
   gap?: string;
-  cellShape?: 'square' | 'circle';
+  cellShape?: 'square';
 };
 
 const Grid: React.FC<GridProps> = ({
@@ -64,7 +64,7 @@ const Grid: React.FC<GridProps> = ({
               if (e.key === 'Enter' || e.key === ' ') handleClick(idx);
             }}
             className={`w-full aspect-square cursor-pointer transition-colors duration-300 
-              ${cellShape === 'circle' ? 'rounded-full' : 'rounded-none'}
+              ${cellShape === 'square' ? 'rounded-none' : 'rounded-none'}
               ${isActive ? 'animate-shake' : ''}
             `}
             style={{

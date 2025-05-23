@@ -49,8 +49,7 @@ export function useGameLogic() {
     setDiffColor(newDiffColor);
     setDiffIndex(newDiffIndex);
 
-    localStorage.setItem('diff-color', newDiffColor);
-    localStorage.setItem('diff-index', newDiffIndex.toString());
+    
   }, [level]);
 
   const handleClick = (idx: number) => {
