@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <img
           src={isDarkMode ? LightIcon : DarkIcon}
           alt={isDarkMode ? 'Light mode' : 'Dark mode'}
-          className="w-10 h-10"
+          className="w-6 h-6 md:w-10 md:h-10"
           loading="lazy"
           width={40}
           height={40}
@@ -64,7 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({
       )}
 
       <div
-        className="font-bold text-lg select-none"
+        className="font-bold text-sm md:text-lg select-none"
         data-testid="level-display"
       >
         Level {level + 1}
