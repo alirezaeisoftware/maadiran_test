@@ -15,7 +15,7 @@ const buttonClasses = {
   base: 'py-1 rounded transition',
   themeToggle: 'hover:opacity-80 focus:ring-gray-400',
   restart:
-    'bg-blue-700 px-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 focus:ring-blue-500',
+    'bg-blue-700 px-2 text-base md:text-lg text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 focus:ring-blue-500',
 };
 
 const navClasses = `
@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <img
           src={isDarkMode ? LightIcon : DarkIcon}
           alt={isDarkMode ? 'Light mode' : 'Dark mode'}
-          className="w-10 h-10"
+          className="w-8 h-8 md:w-10 md:h-10"
           loading="lazy"
           width={40}
           height={40}
@@ -64,7 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({
       )}
 
       <div
-        className="font-bold text-lg select-none"
+        className="font-bold text-base md:text-lg select-none"
         data-testid="level-display"
       >
         Level {level + 1}
