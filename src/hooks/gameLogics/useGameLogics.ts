@@ -2,29 +2,28 @@ import { useEffect, useState } from 'react';
 import { BASE_COLORS, getDifferentColor } from '../../utils/colorUtils';
 
 export function useGameLogic() {
-  const [level, setLevel] = useState<number | null>(null);
+  const [level, setLevel] = useState<number>(() => {
+    const saved = localStorage.getItem('game-level');
+    return saved ? parseInt(saved) : 0;
+  });
   const [rows, setRows] = useState(4);
   const [cols, setCols] = useState(3);
-  const [diffIndex, setDiffIndex] = useState(0);
+  const [diffIndex, setDiffIndex] = useState(() => {
+    const saved = localStorage.getItem('diff-index');
+    return saved ? parseInt(saved) : 0;
+  });
   const [baseColor, setBaseColor] = useState(BASE_COLORS[0]);
-  const [diffColor, setDiffColor] = useState('');
+  const [diffColor, setDiffColor] = useState(
+    () => localStorage.getItem('diff-color') || ''
+  );
   const [colorGroup, setColorGroup] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [showWrongModal, setShowWrongModal] = useState(false);
 
   useEffect(() => {
-    const savedLevel = localStorage.getItem('game-level');
-    const savedIndex = localStorage.getItem('diff-index');
-    const savedColor = localStorage.getItem('diff-color');
-
-    setLevel(savedLevel ? parseInt(savedLevel) : 0);
-    if (savedIndex) setDiffIndex(parseInt(savedIndex));
-    if (savedColor) setDiffColor(savedColor);
-  }, []);
-
-  useEffect(() => {
     if (level === null) return;
+
     localStorage.setItem('game-level', level.toString());
 
     const newGroup = Math.floor(level / 3);
@@ -33,41 +32,38 @@ export function useGameLogic() {
     const base = BASE_COLORS[newGroup % BASE_COLORS.length];
     setBaseColor(base);
 
-    const r = Math.min(3 + newGroup, 9);
-    const c = Math.min(4 + newGroup * 2, 16);
+    const r = Math.min(3 + newGroup, 9); 
+    const c = Math.min(4 + newGroup * 2, 16); 
     setRows(r);
     setCols(c);
 
-    const step = level % 3;
-    let difficulty;
-    if (step === 0) difficulty = 8;
-    else if (step === 1) difficulty = 5;
-    else difficulty = 3;
-
-    const difficultyWithLevel = difficulty + Math.floor(level / 4);
+    const difficultySteps = [8, 7, 6, 5, 4, 3, 2];
+    const difficultyIndex = Math.min(newGroup, difficultySteps.length - 1);
+    const difficulty = difficultySteps[difficultyIndex];
 
     const total = r * c;
-    const storedDiffColor = localStorage.getItem('diff-color');
-    const storedDiffIndex = localStorage.getItem('diff-index');
 
-    if (!storedDiffColor || !storedDiffIndex) {
-      const newDiffColor = getDifferentColor(base, difficultyWithLevel);
-      const newDiffIndex = Math.floor(Math.random() * total);
-      setDiffColor(newDiffColor);
-      setDiffIndex(newDiffIndex);
-      localStorage.setItem('diff-color', newDiffColor);
-      localStorage.setItem('diff-index', newDiffIndex.toString());
-    }
-  }, [level, colorGroup]);
+    const newDiffColor = getDifferentColor(base, difficulty);
+    const newDiffIndex = Math.floor(Math.random() * total);
+
+    setDiffColor(newDiffColor);
+    setDiffIndex(newDiffIndex);
+
+    localStorage.setItem('diff-color', newDiffColor);
+    localStorage.setItem('diff-index', newDiffIndex.toString());
+  }, [level]);
 
   const handleClick = (idx: number) => {
     if (idx === diffIndex) {
-      if (level! < 20) setShowModal(true);
-      else {
+      if (level < 20) {
+        setShowModal(true);
+      } else {
         setIsGameFinished(true);
         setShowModal(true);
       }
-    } else setShowWrongModal(true);
+    } else {
+      setShowWrongModal(true);
+    }
   };
 
   const handleNextLevel = () => {
