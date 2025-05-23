@@ -1,7 +1,8 @@
 import React from 'react';
 import Grid from '../../grid/grid';
 import Navbar from '../../navbar/navbar';
-import GameModal from '../../modal/modal';
+import SuccessModal from '../../modal/successModal';
+import ErrorModal from '../../modal/errorModal';
 
 interface Props {
   level: number;
@@ -19,8 +20,7 @@ interface Props {
   onRepeat: () => void;
   onRestart: () => void;
   onCloseWrong: () => void;
-  isDarkMode: boolean;
-  onToggleTheme: () => void;
+  onCloseSuccess: () => void;
 }
 
 const GameUI: React.FC<Props> = ({
@@ -38,8 +38,7 @@ const GameUI: React.FC<Props> = ({
   onRepeat,
   onRestart,
   onCloseWrong,
-  isDarkMode,
-  onToggleTheme,
+  onCloseSuccess,
 }) => {
   return (
     <div
@@ -48,12 +47,7 @@ const GameUI: React.FC<Props> = ({
          dark:text-gray-100
         transition-colors duration-300`}
     >
-      <Navbar
-        level={level}
-        onToggleTheme={onToggleTheme}
-        isDarkMode={isDarkMode}
-        onRestartConfirmed={onRestart}
-      />
+      <Navbar level={level} onRestartConfirmed={onRestart} />
 
       <Grid
         rows={rows}
@@ -64,20 +58,15 @@ const GameUI: React.FC<Props> = ({
         onCellClick={onCellClick}
       />
 
-      <GameModal
-        type="success"
+      <SuccessModal
         isVisible={showModal}
         isGameFinished={isGameFinished}
         onNextLevel={onNextLevel}
         onRepeat={onRepeat}
         onRestart={onRestart}
+        onClose={onCloseSuccess}
       />
-
-      <GameModal
-        type="error"
-        isVisible={showWrongModal}
-        onCancel={onCloseWrong}
-      />
+      <ErrorModal isVisible={showWrongModal} onClose={onCloseWrong} />
     </div>
   );
 };

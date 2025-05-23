@@ -7,14 +7,7 @@ describe('Navbar component', () => {
     const onToggleTheme = vi.fn();
     const onRestartConfirmed = vi.fn();
 
-    render(
-      <Navbar
-        level={level}
-        onToggleTheme={onToggleTheme}
-        isDarkMode={false}
-        onRestartConfirmed={onRestartConfirmed}
-      />
-    );
+    render(<Navbar level={level} onRestartConfirmed={onRestartConfirmed} />);
 
     return { onToggleTheme, onRestartConfirmed };
   };
@@ -22,13 +15,6 @@ describe('Navbar component', () => {
   it('renders current level correctly', () => {
     setup(2);
     expect(screen.getByTestId('level-display').textContent).toBe('Level 3');
-  });
-
-  it('calls onToggleTheme when theme button is clicked', () => {
-    const { onToggleTheme } = setup();
-    const toggleBtn = screen.getByTestId('theme-toggle-button');
-    fireEvent.click(toggleBtn);
-    expect(onToggleTheme).toHaveBeenCalled();
   });
 
   it('does not show "Start Again" button if level is 0', () => {

@@ -17,7 +17,7 @@ describe('getDifferentColor', () => {
   });
 
   it('decreases lightness if Math.random <= 0.5', () => {
-    vi.spyOn(Math, 'random').mockReturnValue(0.3); 
+    vi.spyOn(Math, 'random').mockReturnValue(0.3);
     const result = getDifferentColor(baseColor, 10);
     expect(result).toBe('hsl(210, 70%, 40%)');
   });

@@ -8,7 +8,6 @@ type GridProps = {
   diffIndex: number;
   onCellClick: (idx: number) => void;
   gap?: string;
-  cellShape?: 'square';
 };
 
 const Grid: React.FC<GridProps> = ({
@@ -19,7 +18,6 @@ const Grid: React.FC<GridProps> = ({
   diffIndex,
   onCellClick,
   gap = '1px',
-  cellShape = 'square',
 }) => {
   const total = rows * cols;
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -64,7 +62,7 @@ const Grid: React.FC<GridProps> = ({
               if (e.key === 'Enter' || e.key === ' ') handleClick(idx);
             }}
             className={`w-full aspect-square cursor-pointer transition-colors duration-300 
-              ${cellShape === 'square' ? 'rounded-none' : 'rounded-none'}
+              rounded-none
               ${isActive ? 'animate-shake' : ''}
             `}
             style={{

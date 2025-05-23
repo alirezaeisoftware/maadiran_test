@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import LightIcon from '/icons/summer_14388078.webp';
 import DarkIcon from '/icons/moon_740866.webp';
-import GameModal from '../modal/modal';
+import ConfirmModal from '../modal/confirmModal';
 
 interface NavbarProps {
   level: number;
-  onToggleTheme: () => void;
-  isDarkMode: boolean;
   onRestartConfirmed: () => void;
 }
 
@@ -21,24 +19,37 @@ const buttonClasses = {
 const navClasses = `
   my-5 flex items-center justify-between border border-transparent
   px-4 py-2 shadow-2xl rounded-md
- bg-indigo-100
- text-gray-800
+  bg-indigo-100 text-gray-800
   dark:bg-gray-800 dark:text-white
   transition-colors duration-300
 `;
 
-const Navbar: React.FC<NavbarProps> = ({
-  level,
-  onToggleTheme,
-  isDarkMode,
-  onRestartConfirmed,
-}) => {
+const Navbar: React.FC<NavbarProps> = ({ level, onRestartConfirmed }) => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    const isDark = storedTheme === 'dark';
+    setIsDarkMode(isDark);
+    const root = window.document.documentElement;
+    root.classList.toggle('dark', isDark);
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prev) => {
+      const newMode = !prev;
+      const root = window.document.documentElement;
+      root.classList.toggle('dark', newMode);
+      localStorage.setItem('theme', newMode ? 'dark' : 'light');
+      return newMode;
+    });
+  };
 
   return (
     <nav className={navClasses}>
       <button
-        onClick={onToggleTheme}
+        onClick={toggleTheme}
         className={clsx(buttonClasses.base, buttonClasses.themeToggle)}
         aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
         data-testid="theme-toggle-button"
@@ -48,8 +59,6 @@ const Navbar: React.FC<NavbarProps> = ({
           alt={isDarkMode ? 'Light mode' : 'Dark mode'}
           className="w-8 h-8 md:w-10 md:h-10"
           loading="lazy"
-          width={40}
-          height={40}
         />
       </button>
 
@@ -70,8 +79,7 @@ const Navbar: React.FC<NavbarProps> = ({
         Level {level + 1}
       </div>
 
-      <GameModal
-        type="confirm"
+      <ConfirmModal
         isVisible={showConfirmModal}
         message="Are you sure you want to restart the game?"
         onConfirm={() => {
